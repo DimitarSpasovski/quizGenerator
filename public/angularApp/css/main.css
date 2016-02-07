@@ -1,0 +1,75 @@
+
+.ng-scope {
+
+}
+
+table {
+    border-collapse: collapse;
+}
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+table td,th {
+    font-size:20px;  !important
+}
+
+.affix {
+    top:50px;
+    right:0;
+    position:fixed;
+}
+.affix-top {
+    top:50px;
+    right:0;
+    position:fixed;
+}
+@media (min-width: 992px) {
+    .myFixed {
+            position: fixed;
+        width: 30%;
+    }
+    #createQuizPanel {
+        min-height: 500px;
+    }
+
+    .scrollit {
+        float: left;
+        width: 71%
+    }
+}
+@media (max-width:991px)
+{
+    .myFixed {
+        position:inherit;
+        color:red;
+    }
+}
+
+.answerButtons {
+    background: #1f6299;
+    color: #ffffff;
+    z-index:100;
+}
+.selectedButton {
+    background: black;
+    color: #ffffff;
+    z-index:100;
+}
+.answerButtons:hover {
+    color:lightgrey;
+}
+
+.answerControls {
+    width:80%; !important
+}
+.myErrors {
+    color:red;
+}
+
+.correctAnswer {
+    background: #20a046;
+}
+
+.wrongAnswer {
+    background: #ff3211;
+}

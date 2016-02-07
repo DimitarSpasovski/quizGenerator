@@ -1,0 +1,148 @@
+<div class="row">
+<span ng-if="quizError">
+    <div class='jumbotron text-center'>
+        <h1>{{errorMessage}}</h1>
+    </div>
+</span>
+
+<span ng-if="!quizError">
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <h2>User: {{user.name}}</h2>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div style="display:inline-block" ng-repeat="quizQuestion in currentQuiz.questions">
+                                   <span ng-if="$index==$parent.currentIndex">
+                                    <button class="selectedButton" ng-click="$parent.goToQuestion($index)">{{$index+1}}</button>
+                                    </span>
+                                    <span ng-if="$index!=$parent.currentIndex">
+                                    <button class="answerButtons" ng-click="$parent.goToQuestion($index)">{{$index+1}}</button>
+                                    </span>
+                </div>
+
+                <br/>
+                <br/>
+            </div>
+
+            <div class="col-sm-2">
+              <input type="number" class="form-control" placeholder="Quiz score" ng-model="user.currentScore"> <br/>
+                <button type="button" class="btn answerButtons" id="sscore" data-toggle="modal" data-target="#myModal">Save score</button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Saving score</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to save the score for this student?</p>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <button type="button" class="btn answerButtons" data-dismiss="modal" ng-click="saveScore()">Yes</button>
+                            <button type="button" class="btn btn-error" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="col-xs-12" style="height:20px"></div>
+
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <h3>{{currentQuestion.question_text}}</h3>
+                    </div>
+
+
+                    <div class="panel-body">
+                        <h3 class="col-sm-2 col-sm-offset-10">Points:{{currentQuestion.points}}</h3>
+                        <form class="form-horizontal col-sm-12" role="form">
+                            <ul class="list-group">
+
+                                <li class="well list-group-item" ng-repeat="currentAnswer in currentQuestion.answers"
+                                    style="background:{{getColor(currentAnswer)}}">
+
+                                                 <span ng-if="currentAnswer.type=='radio'">
+                                                 <div class="form-group">
+                                                     <div class="radio col-sm-1">
+                                                         <label class="text-center">
+                                                             <span ng-if="currentAnswer.selected == true">
+                                                                  <input type="radio" disabled checked
+                                                                         name="currentQuestion" value=true>
+                                                             </span>
+                                                              <span ng-if="currentAnswer.selected != true">
+                                                                  <input type="radio" disabled
+                                                                         name="currentQuestion" value=true>
+                                                             </span>
+                                                         </label>
+                                                     </div>
+                                                     <div class="col-sm-9">
+                                                         <label class="control-label">
+                                                             {{currentAnswer.information}}
+                                                         </label>
+                                                     </div>
+
+                                                 </div>
+                                                </span>
+
+                                                <span ng-if="currentAnswer.type=='checkbox'">
+                                                 <div class="form-group">
+                                                     <div class="radio col-sm-1">
+                                                         <label class="text-center">
+                                                               <span ng-if="currentAnswer.selected == true">
+                                                                  <input type="checkbox" disabled checked
+                                                                         name="currentQuestion" value=true>
+                                                             </span>
+                                                              <span ng-if="currentAnswer.selected != true">
+                                                                  <input type="checkbox" disabled
+                                                                         name="currentQuestion" value=true>
+                                                             </span>
+                                                         </label>
+                                                     </div>
+                                                     <div class="col-sm-9">
+                                                         <label class="control-label">
+                                                             {{currentAnswer.information}}
+                                                         </label>
+                                                     </div>
+
+                                                 </div>
+                                                </span>
+
+                                               <span ng-if="currentAnswer.type=='text'">
+                                                <div class="form-group">
+                                                    <div class="col-sm-9 col-sm-offset-1">
+                                                        <input type="textbox" class="form-control" ng-model="currentAnswer.selected" disabled>
+                                                    </div>
+
+                                                </div>
+                                                </span>
+
+
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="col-sm-12" style="height:30px"></div>
+                    <div class="col-sm-4 text-center col-sm-offset-4">
+                        <button class="btn answerButtons" ng-click="previousQuestion()"><span class="glyphicon glyphicon-arrow-left"></span> Previous</button>
+                        <button class="btn answerButtons" ng-click="nextQuestion()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</span>
+
+</div>

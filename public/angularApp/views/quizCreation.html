@@ -1,0 +1,264 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div  class="panel-heading text-center"><h2>Create a new quiz!</h2></div>
+        </div>
+    </div>
+    <div class="col-md-12 pull-left">
+
+
+
+
+
+                <div class="col-md-3 text-center">
+                    <form class="form-horizontal" name="nameForm" role="form" novalidate>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Name:</label>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" required ng-model="currentQuiz.name">
+                        </div>
+                        <div class="text-center col-sm-12">
+                        <span class="myErrors" ng-show="nameForm.name.$error.required">
+                            Quiz name cannot be empty.</span>
+                    </div>
+                    </div>
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+                    <form class="form-horizontal" name="categoryForm" role="form" novalidate>
+                    <div class="form-group">
+                        <label class="col-md-5 control-label">Category:</label>
+
+                        <div class="col-md-7">
+                            <input type="text" class="form-control" required name="category" ng-model="currentQuiz.category">
+                        </div>
+                        <div class="text-center col-md-12">
+                         <span class="myErrors" ng-show="categoryForm.category.$error.required">
+                            You must choose a category.</span>
+                    </div>
+                    </div>
+                    </form>
+                </div>
+
+          <div class="col-md-3">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">From:</label>
+
+                    <div class="col-md-8">
+                        <input id="valid_from" type="date" class="form-control" name="valid_from" ng-model="currentQuiz.valid_from">
+                    </div>
+                </div>
+            </form>
+          </div>
+
+        <div class="col-md-3">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">To:</label>
+
+                    <div class="col-md-8">
+                        <input id="valid_to" type="date" class="form-control" name="valid_to" ng-model="currentQuiz.valid_to">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+                <div class="col-md-12">
+                    <div class="panel panel-default" id="createQuizPanel">
+
+                        <div class="panel-body row">
+
+                            <div class="col-md-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Answer types</div>
+                                        <div class="panel-body">Drag and drop the answer type you would
+                                                                like to use on the current question.
+
+                                            <br/><br/>
+                                <ul class="list-group" id="sortable1">
+                                    <li class="btn answerButtons list-group-item" ng-repeat="answer in answerTypes">{{answer}}</li>
+
+                                </ul>
+                                        </div>
+                                    </div>
+                            </div>
+
+
+
+
+                            <div class="col-md-7 col-md-offset-1" style="z-index:10">
+                             <div class="col-sm-12">
+                               <div class="col-sm-10">
+                                <div style="display:inline-block" ng-repeat="quizQuestion in quizQuestions">
+                                   <span ng-if="$index==$parent.currentIndex">
+                                    <button class="selectedButton" ng-click="$parent.goToQuestion($index)">{{$index+1}}</button>
+                                    </span>
+                                    <span ng-if="$index!=$parent.currentIndex">
+                                    <button class="answerButtons" ng-click="$parent.goToQuestion($index)">{{$index+1}}</button>
+                                    </span>
+                                </div>
+                                <br/>
+                                 <br/>
+                               </div>
+                                <div class="col-sm-2 pull-right">
+                                    <button class="btn btn-error" ng-click="deleteCurrentQuestion()"><i class="fa fa-times"></i></button>
+                                </div>
+                             </div>
+
+                                <form role="form">
+                                <div class="form-group">
+                                    <label class="control-label">Question text:</label>
+
+
+                                    <div class="">
+                                        <textarea class="form-control" rows=3 name="currentQuestion" ng-model="currentQuestion.question_text"> </textarea>
+                                    </div>
+                                </div>
+                                </form>
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-body text-center" id="">
+                                 <form class="form-horizontal" role="form">
+                                     <div class="form-group">
+                                         <label class="control-label col-sm-4">Points: </label>
+                                         <div class="col-sm-4">
+                                             <input type="number" class="form-control" ng-model="currentQuestion.points">
+                                         </div>
+                                     </div>
+                                 </form>
+                                <ul class="list-group" id="sortable2">
+                                <li class="well list-group-item">Drag answers here!</li>
+                                </ul>
+                                    <form class="form-horizontal" role="form">
+                                    <ul class="list-group">
+
+                                        <li class="well list-group-item" ng-repeat="currentAnswer in currentAnswers">
+
+                                                 <span ng-if="currentAnswer.type=='radio'">
+                                                 <div class="form-group">
+                                                  <label class="control-label col-sm-1">
+                                                      <input type="radio"  ng-model="currentAnswer.is_correct" name="currentQuestion" value=true>
+                                                  </label>
+                                                  <div class="col-sm-9">
+                                                    <input type="textbox" class="form-control" ng-model="currentAnswer.information">
+                                                 </div>
+                                                 <div class="col-sm-1">
+                                                     <button class="btn btn-error" ng-click="$parent.deleteAnswer($index)"><i class="fa fa-times"></i></button>
+                                                 </div>
+                                                     <div class="text-center col-sm-12">
+                                                          <span class="myErrors" ng-show="!currentAnswer.information">
+                                                        Answers cannot be empty.
+                                                          </span>
+                                                     </div>
+                                                </div>
+                                                </span>
+
+                                                <span ng-if="currentAnswer.type=='checkbox'">
+                                                 <div class="form-group">
+                                                     <label class="control-label col-sm-1">
+                                                <input type="checkbox"  ng-model="currentAnswer.is_correct" value=true>
+                                                     </label>
+
+                                                     <div class="col-sm-9">
+                                                <input type="textbox" class="form-control" ng-model="currentAnswer.information">
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                         <button class="btn btn-error" ng-click="$parent.deleteAnswer($index)"><i class="fa fa-times"></i></button>
+                                                     </div>
+                                                     <div class="text-center col-sm-12">
+                                                          <span class="myErrors" ng-show="!currentAnswer.information">
+                                                        Answers cannot be empty.
+                                                          </span>
+                                                     </div>
+                                                     </div>
+                                                </span>
+
+                                               <span ng-if="currentAnswer.type=='text'">
+                                                <div class="form-group">
+                                               <div class="col-sm-9 col-sm-offset-1">
+                                                <input type="textbox" class="form-control" ng-model="currentAnswer.information">
+                                               </div>
+                                                    <div class="col-sm-1">
+                                                        <button class="btn btn-error" ng-click="$parent.deleteAnswer($index)"><i class="fa fa-times"></i></button>
+                                                    </div>
+                                                    <div class="text-center col-sm-12">
+                                                          <span class="myErrors" ng-show="!currentAnswer.information">
+                                                        Answers cannot be empty.
+                                                          </span>
+                                                    </div>
+                                                </div>
+                                                </span>
+
+
+                                        </li>
+                                    </ul>
+                                    </form>
+                                    <button class="btn answerButtons" ng-click="createNewQuestion()">New question!</button>
+                                </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-center panel panel-default">
+                             <div class="panel-heading">
+                            <button  data-toggle="modal" data-target="#myModal" class=" btn answerButtons btn-lg">Create quiz</button>
+                            </div>
+                            </div>
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Quiz creation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to save this quiz?</p>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn answerButtons" data-dismiss="modal" ng-click="createQuiz()">Yes</button>
+                                            <button type="button" class="btn btn-error" data-dismiss="modal">No</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12 text-center">
+                                <div ng-show="finalResult">
+
+                                    <div ng-show="isSuccesful">
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading h2">Success!</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-danger" ng-show="!isSuccesful">
+
+                                        <div class="panel-heading">
+                                         <h2>The quiz was not created because: </h2>
+                                        <ul class=" list-unstyled list-group">
+                                        <li ng-repeat="error in errors">
+                                            {{error}}
+                                        </li>
+                                        </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+    </div>
+</div>

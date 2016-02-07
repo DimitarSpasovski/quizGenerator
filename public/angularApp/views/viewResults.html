@@ -1,0 +1,65 @@
+<div class="row">
+    <span ng-if="quizError">
+    <div class='jumbotron text-center'>
+        <h1>{{errorMessage}}</h1>
+    </div>
+</span>
+
+<span ng-if="!quizError">
+<div class="panel panel-default">
+    <div class="panel-heading text-center"><h2>{{currentQuiz.name}} results</h2></div>
+</div>
+<div class="panel-body">
+
+    <div class="col-xs-12" style="height:25px;"></div>
+    <div class="col-md-12">
+        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table">
+            <thead>
+            <tr class="">
+                <th st-sort="name" class="text-center col-md-3">User name</th>
+                <th st-sort="email" class="text-center col-md-4">User email</th>
+                <th st-sort="sent_at" class="text-center col-md-2">Sent at</th>
+                <th st-sort="score" class="text-center col-md-1">Points</th>
+                <th class="col-md-2 text-center">Options</th>
+                <th st-sort="is_graded" class="col-md-1 text-center">Graded</th>
+
+            </tr>
+            <tr>
+                <td>
+                    <input st-search="name" placeholder="search by name" class="input-sm form-control" type="search"/>
+                </td>
+                <td>
+                    <input st-search="email" placeholder="search by email" class="input-sm form-control" type="search"/>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in displayedCollection">
+                <td class="col-md-2 text-center">{{row.name}}</td>
+                <td class="col-md-4 text-center">{{row.email}}</td>
+                <td class="col-md-2 text-center">{{row.sent_at}}</td>
+                <td class="col-md-1 text-center">{{row.score}}</td>
+                <td class="col-md-2 text-center"><button class="btn answerButtons" ng-click="$parent.showResult(row.result_id)">View results</button>
+                <td class="col-md-1 text-center">
+                <span ng-if="row.is_graded == 0">
+                    <input type="checkbox" disabled>
+                </span>
+                <span ng-if="row.is_graded == 1">
+                    <input type="checkbox" disabled checked>
+                </span>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="5" st-displayed-pages="5"></div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
+</span>
+</div>
