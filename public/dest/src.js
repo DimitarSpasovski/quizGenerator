@@ -168,9 +168,9 @@ quizGenerator.controller('quizCreationController',["$scope","$state","$resource"
         $scope.currentQuestion = {};
         $scope.currentAnswers = [];
         $scope.currentQuestion.answers = $scope.currentAnswers;
-        $scope.currentIndex = $scope.currentIndex + 1;
         $scope.currentAnswer = {}; //current answer
         $scope.quizQuestions.push($scope.currentQuestion);
+        $scope.currentIndex = $scope.quizQuestions.length - 1;
     }
 
     $scope.generateAnswer = function(answerType){
@@ -293,10 +293,17 @@ quizGenerator.controller('quizCreationController',["$scope","$state","$resource"
         return errors;
     }
 
-    $scope.currentQuiz.valid_from = new Date();
-    $scope.currentQuiz.valid_to = new Date(new Date().setDate(new Date().getDate()+1));
+
+        var today =  new Date();
+
+        var tomorrow = new Date(new Date().setDate(new Date().getDate()+1));
+        $("#valid_from").datepicker({defaultDate : today});
+        $("#valid_to").datepicker({defaultDate : tomorrow});
 
 
+
+    $scope.currentQuiz.valid_from = $.datepicker.formatDate("mm/dd/yy", today);
+    $scope.currentQuiz.valid_to = $.datepicker.formatDate("mm/dd/yy", tomorrow);
 }]);
 
 /**
@@ -534,12 +541,7 @@ quizGenerator.controller('userResultController',["$scope","$state","$http","$loc
 /**
  * Created by Dimitar on 1/30/2016.
  */
-/**
- * Created by Dimitar on 1/17/2016.
- */
-/**
- * Created by Dimitar on 1/16/2016.
- */
+
 quizGenerator.controller('viewResultsController',["$scope","$state","$http","$location",'dateParser',
     function($scope, $state, $http, $location, dateParser){
 

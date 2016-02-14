@@ -73,3 +73,7 @@ table td,th {
 .wrongAnswer {
     background: #ff3211;
 }
+
+.ui-datepicker {
+    z-index: 9999 !important;
+}

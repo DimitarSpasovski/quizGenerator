@@ -1,12 +1,7 @@
 /**
  * Created by Dimitar on 1/30/2016.
  */
-/**
- * Created by Dimitar on 1/17/2016.
- */
-/**
- * Created by Dimitar on 1/16/2016.
- */
+
 quizGenerator.controller('viewResultsController',["$scope","$state","$http","$location",'dateParser',
     function($scope, $state, $http, $location, dateParser){
 

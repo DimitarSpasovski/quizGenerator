@@ -51,9 +51,9 @@ quizGenerator.controller('quizCreationController',["$scope","$state","$resource"
         $scope.currentQuestion = {};
         $scope.currentAnswers = [];
         $scope.currentQuestion.answers = $scope.currentAnswers;
-        $scope.currentIndex = $scope.currentIndex + 1;
         $scope.currentAnswer = {}; //current answer
         $scope.quizQuestions.push($scope.currentQuestion);
+        $scope.currentIndex = $scope.quizQuestions.length - 1;
     }
 
     $scope.generateAnswer = function(answerType){
@@ -176,8 +176,15 @@ quizGenerator.controller('quizCreationController',["$scope","$state","$resource"
         return errors;
     }
 
-    $scope.currentQuiz.valid_from = new Date();
-    $scope.currentQuiz.valid_to = new Date(new Date().setDate(new Date().getDate()+1));
+
+        var today =  new Date();
+
+        var tomorrow = new Date(new Date().setDate(new Date().getDate()+1));
+        $("#valid_from").datepicker({defaultDate : today});
+        $("#valid_to").datepicker({defaultDate : tomorrow});
 
 
+
+    $scope.currentQuiz.valid_from = $.datepicker.formatDate("mm/dd/yy", today);
+    $scope.currentQuiz.valid_to = $.datepicker.formatDate("mm/dd/yy", tomorrow);
 }]);

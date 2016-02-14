@@ -3,11 +3,15 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="jumbotron">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading text-center">
                 <h1>Welcome to Quiz Generator </h1>
-                <p style="font-family:'sans-seirf,verdana'""><small>In order to access our quizzes you have to login
-                        (if you already have an account) or register if you are a new user.</small></p>
+              </div>
+                <div class="panel-body text-center">
+                <p style="font-family:'sans-seirf,verdana'"">In order to access our quizzes you have to login
+                        (if you already have an account) or register if you are a new user.</p>
+                </div>
             </div>
 
         </div>
